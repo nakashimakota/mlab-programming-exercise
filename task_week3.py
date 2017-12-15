@@ -31,19 +31,17 @@ class SimpleMusic(object):
         self.bpm = bpm
         self.rate = rate
         self.notes = []
-        self.bpms = []  # 途中でbpmを変更できるようにbpmの値を格納しておく
 
     def append_note(self, note):
         """Noteオブジェクトを取って音を追加する
         note: Noteオブジェクト
         """
         self.notes.append(note)
-        self.bpms.append(self.bpm)
 
     def play(self):
         """波の生成"""
-        for (note, bpm) in zip(self.notes, self.bpms):
-            wave = note.generate_wave(bpm, self.rate)
+        for note in self.notes:
+            wave = note.generate_wave(self.bpm, self.rate)
             pa = pyaudio.PyAudio()
             stream = pa.open(format=pyaudio.paFloat32, channels=1,
                              rate=self.rate, output=True)
@@ -55,12 +53,13 @@ def main():
     player.append_note(Note("c4"))
     player.append_note(Note("d4"))
     player.append_note(Note("e4"))
-    player.bpm = 60  # 途中で遅くする
     player.append_note(Note("f4"))
     player.append_note(Note("g4"))
     player.append_note(Note("a4"))
     player.append_note(Note("b4"))
     player.append_note(Note("c5"))
+    player.play()
+    player.bpm = 240
     player.play()
 
 
