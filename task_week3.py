@@ -59,7 +59,7 @@ def main():
     player.append_note(Note("b4"))
     player.append_note(Note("c5"))
     player.play()
-    player.bpm = 240
+    player.bpm = 240  # 速さを2倍にして鳴らす．
     player.play()
 
 
